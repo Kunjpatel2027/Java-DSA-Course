@@ -122,40 +122,51 @@ public class RecursionBasics {
         return halfpowersq;
     }
 
-    private static int[] memo;
-
-    public static int tillingProblem(int n) {
-        memo = new int[n + 1]; // Initialize memoization array
-        return tillingProblem(n);
-    }
-
     // Interview Question for Amazon Tilling Problem
-    public static int tillingProblem(int n, int memo[]) {
-        if (n == 0) {
+    public static int tillingProblem(int n) {
+        if (n == 0 || n == 1) {
             return 1;
         }
-        if (memo[n] != 0) {
-            return memo[n];
-        }
+
         // vertical choice tiling
         int fnm = tillingProblem(n - 1);
         // Horizontal Choice of tiling
         int fnm2 = tillingProblem(n - 2);
         int totalWays = fnm + fnm2;
 
-        memo[n] = totalWays; // Store the computed result in the memoization array
         return totalWays;
     }
 
-    public static void main(String[] args) {
+    // Problem 12 Interview Question asked in google , Microsoft
+    // Removing Duplicates from a string and printing new string with no duplicate
+    // character in the old string
+    public static void removeDuplicates(String str, int idx, StringBuilder newStr, boolean map[]) {
+        // Base Case
+        if (idx == str.length()) {
+            System.out.println(newStr);
+            return;
+        }
+        // Work
+        char currChar = str.charAt(idx);
+        if (map[currChar - 'a'] == true) {
+            // duplicate
+            removeDuplicates(str, idx + 1, newStr, map);
+        } else {
+            map[currChar - 'a'] = true;
+            removeDuplicates(str, idx, newStr.append(currChar), map);
+        }
+    }
 
+    public static void main(String[] args) {
+        String str = "appnnacolllege";
+        removeDuplicates(str, 0, new StringBuilder(" "), new boolean[26]);
         // int arr[] = { 1, 2, 3, 6, 5 };
         // int key = 5;
         // int arr2[] = { 8, 2, 4, 5, 6, 13, 1, 5, 7 };
         // // System.out.println(fib(n));
         // // System.out.println(lastOccurence(arr2, key, 0));
         // // System.out.println(power(2, 5));
-        System.out.println(tillingProblem(3));
+        // System.out.println(tillingProblem(44));
     }
 
 }
