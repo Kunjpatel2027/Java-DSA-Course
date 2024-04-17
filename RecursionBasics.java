@@ -128,13 +128,13 @@ public class RecursionBasics {
             return 1;
         }
 
-        // vertical choice tiling
-        int fnm = tillingProblem(n - 1);
-        // Horizontal Choice of tiling
-        int fnm2 = tillingProblem(n - 2);
-        int totalWays = fnm + fnm2;
+        // // vertical choice tiling
+        // int fnm = tillingProblem(n - 1);
+        // // Horizontal Choice of tiling
+        // int fnm2 = tillingProblem(n - 2);
+        // int totalWays = fnm + fnm2;
 
-        return totalWays;
+        return tillingProblem(n - 1) + tillingProblem(n - 2);
     }
 
     // Problem 12 Interview Question asked in google , Microsoft
@@ -157,9 +157,48 @@ public class RecursionBasics {
         }
     }
 
+    public static int friendsPair(int n) {
+        // base case
+        if (n == 1 || n == 2) {
+            return n;
+        }
+        // // choice
+        // // single
+        // int fnm1 = friendsPair(n - 1);
+        // // pair
+        // int fnm2 = fnm1 * friendsPair(n - 2);
+        // // total ways
+        // int tw = fnm1 + fnm2;
+        return friendsPair(n - 1) + (n - 1) * friendsPair(n - 2);
+    }
+
+    public static void printBinaryString(int n, int lastPlace, String str1) {
+        // if (lastPlace == 0) {
+        // printBinaryString(n - 1, 0, str1.append("0"));
+        // printBinaryString(n - 1, 1, str1.append("1"));
+        // } else {
+        // printBinaryString(n - 1, 0, str1.append("0"));
+
+        // }
+        // Base Case
+        if (n == 0) {
+            System.out.println(str1);
+            return;
+        }
+
+        printBinaryString(n - 1, 0, str1 + "0");
+
+        if (lastPlace == 0) {
+            printBinaryString(n - 1, 1, str1 + "1");
+        }
+    }
+
     public static void main(String[] args) {
-        String str = "appnnacolllege";
-        removeDuplicates(str, 0, new StringBuilder(" "), new boolean[26]);
+        // String str = "appnnacolllege";
+        printBinaryString(3, 0, (""));
+
+        // removeDuplicates(str, 0, new StringBuilder(" "), new boolean[26]);
+        // System.out.println(friendsPair(7));
         // int arr[] = { 1, 2, 3, 6, 5 };
         // int key = 5;
         // int arr2[] = { 8, 2, 4, 5, 6, 13, 1, 5, 7 };
