@@ -19,7 +19,7 @@ public class Algorithms {
 
     public static void printArr(int arr[]) {
         for (int i = 0; i < arr.length; i++) {
-            System.out.println(arr[i] + "");
+            System.out.print(arr[i] + " ");
         }
         System.out.println();
     }
@@ -78,13 +78,105 @@ public class Algorithms {
         }
     }
 
+    // Merge Sort (Divide & Conquer)
+    public static void mergeSort(int arr[], int si, int ei) {
+        // Base case
+        if (si >= ei) {
+            return;
+        }
+
+        // Work
+        int mid = si + (ei - si) / 2;
+        // left part
+        mergeSort(arr, si, mid);
+        // right
+        mergeSort(arr, mid + 1, ei);
+        merge(arr, si, ei, mid);
+    }
+
+    public static void merge(int arr[], int si, int ei, int mid) {
+        int temp[] = new int[ei - si + 1];
+        int i = si;// iterator for left
+        int j = mid + 1;// iterator for right
+        int k = 0;// iterator for temp
+
+        // comparing values for left part and right part and placing the smaller value
+        // in the temp arr[]
+
+        while (i <= mid && j <= ei) {
+            if (arr[i] < arr[j]) {
+                temp[k] = arr[i];
+                i++;
+
+            } else {
+                temp[k] = arr[j];
+
+                j++;
+            }
+            k++;
+        }
+        // left part
+        while (i <= mid) {
+            temp[k++] = arr[i++];
+        }
+        // right part
+        while (j <= ei) {
+            temp[k++] = arr[j++];
+        }
+
+        // copy temp values to orignal arr
+        for (k = 0, i = si; k < temp.length; k++, i++) {
+            arr[i] = temp[k];
+        }
+
+    }
+
+    // Quick Sort Algorithm
+    public static void quickSort(int arr[], int si, int ei) {
+        // base case
+        if (si >= ei) {
+            return;
+        }
+
+        // pidx = pivot index
+        int pidx = partition(arr, si, ei);
+        quickSort(arr, si, pidx - 1); // left part
+        quickSort(arr, pidx + 1, ei); // right part
+
+    }
+
+    public static int partition(int arr[], int si, int ei) {
+        int pivot = arr[ei];
+        int i = si - 1; // to make place for elements smaller than pivot index
+
+        for (int j = si; j < ei; j++) {
+
+            if (arr[j] <= pivot) {
+                i++;
+                // swap
+                int temp = arr[j];
+                arr[j] = arr[i];
+                arr[i] = temp;
+            }
+        }
+        i++;
+        // swap
+        int temp = pivot;
+        arr[ei] = arr[i];
+        arr[i] = temp;
+        return i;
+
+    }
+
     public static void main(String[] args) {
-        int arr[] = { 5, 4, 1, 3, 2 };
+        int arr[] = { 7, 6, 4, 5, 3, 7, 9, 2 };
+        quickSort(arr, 0, arr.length - 1);
 
         // selectionSort(arr);
         // bubbleSort(arr);
         // insertionSort(arr);
-        countingSort(arr);
+        // countingSort(arr);
+        // mergeSort(arr, 0, arr.length - 1);
         // Arrays.sort(arr,Collections.reverseOrder());
         // Arrays.sort(arr, 0, 3, Collections.reverseOrder());
 
