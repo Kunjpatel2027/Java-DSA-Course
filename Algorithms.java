@@ -168,9 +168,49 @@ public class Algorithms {
 
     }
 
+    // search in Rotated Search array
+    public static int search(int arr[], int target, int si, int ei) {
+        // base case
+        if (si > ei) {
+            return -1;
+        }
+
+        // work
+        int mid = si + (ei - si) / 2;
+        // case
+        if (arr[mid] == target) {
+            return mid;
+        }
+        // case1 : mid on Line 1
+        if (arr[si] <= arr[mid]) {
+            // case a: Left in Line 1
+            if (arr[si] <= target && target <= arr[mid]) {
+                return search(arr, target, si, mid);
+            } else {
+                // case b : right of mid
+                return search(arr, target, mid + 1, ei);
+            }
+        }
+        // case2 : mid on line 2
+        else {
+            // case c: right in Line 2
+            if (arr[mid] <= target && target <= arr[ei]) {
+                return search(arr, target, mid + 1, ei);
+            }
+            // case d: left of mid in line 2
+            else {
+                search(arr, target, si, mid - 1);
+            }
+        }
+        return target;
+    }
+
     public static void main(String[] args) {
-        int arr[] = { 7, 6, 4, 5, 3, 7, 9, 2 };
-        quickSort(arr, 0, arr.length - 1);
+        int arr[] = { 4, 5, 6, 7, 0, 1, 2 };
+        int target = 2;
+        int tarIdx = search(arr, target, 0, arr.length - 1);
+        System.out.println(tarIdx);
+        // quickSort(arr, 0, arr.length - 1);
 
         // selectionSort(arr);
         // bubbleSort(arr);
@@ -182,7 +222,7 @@ public class Algorithms {
 
         // Arrays.sort(arr);
 
-        printArr(arr);
+        // printArr(arr);
 
     }
 }
