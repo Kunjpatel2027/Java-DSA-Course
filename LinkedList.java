@@ -151,6 +151,26 @@ public class LinkedList {
         return helper(head, key);
     }
 
+    // Reverse in Linked List
+    public void reverseLL() {
+        Node prev = null;
+        Node curr = tail = head;
+        Node next;
+        while (curr != null) {
+            // step 1
+            next = curr.next;
+            // step 2
+            curr.next = prev;
+            // Step 3
+            prev = curr;
+            // step4
+            curr = next;
+        }
+        head = prev;
+    }
+
+    // Find the nth and node and delete it from the Linked List
+
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
 
@@ -170,7 +190,9 @@ public class LinkedList {
         // ll.print();
         // System.out.println(ll.size);
 
-        System.out.println(ll.recursiveSearch(14));
+        // System.out.println(ll.recursiveSearch(3));
+        ll.reverseLL();
+        ll.print();
 
     }
 }
