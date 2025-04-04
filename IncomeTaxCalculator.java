@@ -31,7 +31,7 @@ public class IncomeTaxCalculator {
         double Monthly = income / 12;
         double perhour = Monthly / 160;
         System.out.println("Your Monthly net income is : " + Monthly);
-        System.out.println(perhour);
+        System.out.println("per hour :" + perhour);
 
     }
 }
